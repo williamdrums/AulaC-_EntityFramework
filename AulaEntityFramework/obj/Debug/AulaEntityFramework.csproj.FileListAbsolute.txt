@@ -1,0 +1,5 @@
+D:\AulaEntityFramework\AulaEntityFramework\bin\AulaEntityFramework.dll
+D:\AulaEntityFramework\AulaEntityFramework\bin\AulaEntityFramework.pdb
+D:\AulaEntityFramework\AulaEntityFramework\obj\Debug\AulaEntityFramework.csprojResolveAssemblyReference.cache
+D:\AulaEntityFramework\AulaEntityFramework\obj\Debug\AulaEntityFramework.dll
+D:\AulaEntityFramework\AulaEntityFramework\obj\Debug\AulaEntityFramework.pdb

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SeguradoraModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="SeguradoraModelStoreContainer">
+          <EntitySet Name="Acidente" EntityType="SeguradoraModel.Store.Acidente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Motorista" EntityType="SeguradoraModel.Store.Motorista" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Veiculo" EntityType="SeguradoraModel.Store.Veiculo" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Motorista" Association="SeguradoraModel.Store.FK_Motorista">
+            <End Role="Motorista" EntitySet="Motorista" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo" Association="SeguradoraModel.Store.FK_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Acidente" EntitySet="Acidente" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Acidente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Local" Type="text" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Id_veiculo" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motorista">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Endereco" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CNH" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Modelo" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Placa" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+          <Property Name="Id_motorista" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Motorista">
+          <End Role="Motorista" Type="SeguradoraModel.Store.Motorista" Multiplicity="1" />
+          <End Role="Veiculo" Type="SeguradoraModel.Store.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motorista">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="Id_motorista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo">
+          <End Role="Veiculo" Type="SeguradoraModel.Store.Veiculo" Multiplicity="1" />
+          <End Role="Acidente" Type="SeguradoraModel.Store.Acidente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Acidente">
+              <PropertyRef Name="Id_veiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SeguradoraModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="SeguradoraEntities">
+          <EntitySet Name="Acidentes" EntityType="SeguradoraModel.Acidente" />
+          <EntitySet Name="Motoristas" EntityType="SeguradoraModel.Motorista" />
+          <EntitySet Name="Veiculoes" EntityType="SeguradoraModel.Veiculo" />
+          <AssociationSet Name="FK_Veiculo" Association="SeguradoraModel.FK_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculoes" />
+            <End Role="Acidente" EntitySet="Acidentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motorista" Association="SeguradoraModel.FK_Motorista">
+            <End Role="Motorista" EntitySet="Motoristas" />
+            <End Role="Veiculo" EntitySet="Veiculoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Acidente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Local" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Valor" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Veiculo" Relationship="SeguradoraModel.FK_Veiculo" FromRole="Acidente" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Motorista">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Endereco" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CNH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Veiculoes" Relationship="SeguradoraModel.FK_Motorista" FromRole="Motorista" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Modelo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Placa" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Ano" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Acidentes" Relationship="SeguradoraModel.FK_Veiculo" FromRole="Veiculo" ToRole="Acidente" />
+          <NavigationProperty Name="Motorista" Relationship="SeguradoraModel.FK_Motorista" FromRole="Veiculo" ToRole="Motorista" />
+        </EntityType>
+        <Association Name="FK_Veiculo">
+          <End Role="Veiculo" Type="SeguradoraModel.Veiculo" Multiplicity="1" />
+          <End Role="Acidente" Type="SeguradoraModel.Acidente" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Motorista">
+          <End Role="Motorista" Type="SeguradoraModel.Motorista" Multiplicity="1" />
+          <End Role="Veiculo" Type="SeguradoraModel.Veiculo" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="SeguradoraModelStoreContainer" CdmEntityContainer="SeguradoraEntities">
+          <EntitySetMapping Name="Acidentes">
+            <EntityTypeMapping TypeName="SeguradoraModel.Acidente">
+              <MappingFragment StoreEntitySet="Acidente">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motoristas">
+            <EntityTypeMapping TypeName="SeguradoraModel.Motorista">
+              <MappingFragment StoreEntitySet="Motorista">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="CNH" ColumnName="CNH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veiculoes">
+            <EntityTypeMapping TypeName="SeguradoraModel.Veiculo">
+              <MappingFragment StoreEntitySet="Veiculo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Veiculo" TypeName="SeguradoraModel.FK_Veiculo" StoreEntitySet="Acidente">
+            <EndProperty Name="Veiculo">
+              <ScalarProperty Name="Id" ColumnName="Id_veiculo" />
+            </EndProperty>
+            <EndProperty Name="Acidente">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Motorista" TypeName="SeguradoraModel.FK_Motorista" StoreEntitySet="Veiculo">
+            <EndProperty Name="Motorista">
+              <ScalarProperty Name="Id" ColumnName="Id_motorista" />
+            </EndProperty>
+            <EndProperty Name="Veiculo">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

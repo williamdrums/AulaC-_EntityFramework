@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+  <EntityContainerMapping StorageEntityContainer="SeguradoraModelStoreContainer" CdmEntityContainer="SeguradoraEntities">
+    <EntitySetMapping Name="Acidentes">
+      <EntityTypeMapping TypeName="SeguradoraModel.Acidente">
+        <MappingFragment StoreEntitySet="Acidente">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Local" ColumnName="Local" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Motoristas">
+      <EntityTypeMapping TypeName="SeguradoraModel.Motorista">
+        <MappingFragment StoreEntitySet="Motorista">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+          <ScalarProperty Name="CNH" ColumnName="CNH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Veiculoes">
+      <EntityTypeMapping TypeName="SeguradoraModel.Veiculo">
+        <MappingFragment StoreEntitySet="Veiculo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Placa" ColumnName="Placa" />
+          <ScalarProperty Name="Ano" ColumnName="Ano" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_Veiculo" TypeName="SeguradoraModel.FK_Veiculo" StoreEntitySet="Acidente">
+      <EndProperty Name="Veiculo">
+        <ScalarProperty Name="Id" ColumnName="Id_veiculo" />
+      </EndProperty>
+      <EndProperty Name="Acidente">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Motorista" TypeName="SeguradoraModel.FK_Motorista" StoreEntitySet="Veiculo">
+      <EndProperty Name="Motorista">
+        <ScalarProperty Name="Id" ColumnName="Id_motorista" />
+      </EndProperty>
+      <EndProperty Name="Veiculo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
