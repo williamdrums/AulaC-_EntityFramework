@@ -11,6 +11,7 @@
     <div>
         <asp:Label ID="lblID" runat="server" Text=""/>
 
+        <fieldset>
         <table>
             <tr>
                 <td>Nome: </td>
@@ -27,6 +28,7 @@
         </table>
         <asp:Button ID="btnCadastrarMotorista" runat="server" Text="Cadastrar" OnClick="btnCadastrarMotorista_Click"/>
         <asp:Button ID="btnAtualizar" runat="server" Text="Atualizar" OnClick="btnAtualizar_Click"/>
+        </fieldset>
     </div>
     <br /><br />
     <asp:GridView ID="GridViewMotorista" runat="server" DataKeyNames="Id" CellPadding="4" EnableModelValidation="True" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridViewMotorista_SelectedIndexChanged" OnRowCommand="GridViewMotorista_RowCommand">
